@@ -218,7 +218,7 @@ class Tela_Depositar(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Login"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Depositar"))
         self.pushButton_Depositar.setText(_translate("MainWindow", "DEPOSITAR"))
         self.label.setText(_translate("MainWindow", "DEPOSITAR"))
         self.lineEdit_valor.setPlaceholderText(_translate("MainWindow", "VALOR"))

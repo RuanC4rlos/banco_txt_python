@@ -212,7 +212,7 @@ class Tela_Registrar(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Login"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Register"))
         self.pushButton_registrar.setText(_translate("MainWindow", "REGISTRAR"))
         self.label.setText(_translate("MainWindow", "REGISTRAR"))
         self.lineEdit_nome.setPlaceholderText(_translate("MainWindow", "NOME"))

@@ -217,7 +217,7 @@ class Tela_Sacar(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Login"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Sacars"))
         self.pushButton_transferir.setText(_translate("MainWindow", "SACAR"))
         self.label.setText(_translate("MainWindow", "SACAR"))
         self.label_2.setText(_translate("MainWindow", "CONTA"))

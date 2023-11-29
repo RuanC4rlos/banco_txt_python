@@ -237,7 +237,7 @@ class Tela_Menu(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Login"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Menu"))
         self.pushButton_extrato.setText(_translate("MainWindow", "EXTRATO"))
         self.label.setText(_translate("MainWindow", "MENU"))
         self.pushButton_transferir.setText(_translate("MainWindow", "TRANSFERIR"))

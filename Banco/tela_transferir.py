@@ -242,7 +242,7 @@ class Tela_Transferir(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Login"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Transferir"))
         self.pushButton_transferir.setText(_translate("MainWindow", "TRANSFERIR"))
         self.label.setText(_translate("MainWindow", "TRANSFERIR"))
         self.label_2.setText(_translate("MainWindow", "CONTA"))

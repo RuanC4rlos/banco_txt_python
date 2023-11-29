@@ -115,7 +115,7 @@ class Tela_Extrato(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Login"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Extrato"))
         self.label.setText(_translate("MainWindow", "EXTRATO"))
         self.pushButton_sair.setText(_translate("MainWindow", "SAIR"))
 

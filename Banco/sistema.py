@@ -131,7 +131,7 @@ class Main(QMainWindow, UiMain):
         senha = self.tela_registrar.lineEdit_password.text()
         numero = random.randint(100, 300)
         numero=str(numero)
-        extrato = ('Data de Abertura: ' + str(datetime.today()))
+        extrato = ('Data de Abertura: ' + str(datetime.today())+'s')
         cadastro = False
         if not (nome == '' or senha == '' or cpf == '' or nascimento == ''):
              # verifica se login e senha ja n estao cadastrados
@@ -147,6 +147,7 @@ class Main(QMainWindow, UiMain):
                 for i in range( len( cpfs ) ):
                     if cpf == cpfs[i]:
                         cadastro = True
+
                 # Verifica se o numero da conta gerado ja existe e gera outro.
                 diretorio_atual = os.path.dirname(os.path.abspath(__file__))
                 with open(os.path.join(diretorio_atual, 'dados', 'numero.txt'), 'r') as arquivoUsuario:
@@ -155,10 +156,11 @@ class Main(QMainWindow, UiMain):
                 numeros_existentes = list(map(lambda x: x.replace('\n', ''), numeros_existentes))
 
                 # Verifica se o novo número já existe
-                while novo_numero in numeros_existentes:
-                    novo_numero = random.randint(1, 200)
-                numero = str(novo_numero)
-
+                for i in range( len( numeros_existentes ) ):
+                    if numero == numeros_existentes[i]:
+                        numero = random.randint(100, 300)
+                
+                numero=str(numero)
             # se os dados nao estiverem em branco
             if cadastro == False:
                 # insere no arquivo
@@ -318,7 +320,13 @@ class Main(QMainWindow, UiMain):
                     saldos[i] = str(s)
                     Money = True
                     QMessageBox.information( None, 'Mensagem', 'Sacado com sucesso!' )
-                    extrato[i] = (extrato[i] + '\t\t\tSaque realizado no valor de: {} reais'.format( valor ) )
+                    
+                    ultimo = extrato[i]
+                    if ultimo[-1].isalpha():
+                        extrato[i] = (extrato[i] + '\t\t\tSaque realizado no valor de: {} reais'.format( valor ) )
+                    else:
+                        extrato[i] = (extrato[i] + '\t\t\tSaque realizado no valor de: {} reais'.format( valor ) )
+                    self.tela_sacar.Edit_saldo.setText(saldos[i])
                     
 
             if Money != True:
@@ -385,8 +393,14 @@ class Main(QMainWindow, UiMain):
                     s = s + valor
                     saldos[i] = str(s)
                     QMessageBox.information( None, 'Mensagem', 'Depositado com sucesso!' )
-                    extrato[i] = (extrato[i] + '\t\t\tDeposito realizado no valor de: {}'.format(valor))
-
+             
+                    ultimo = extrato[i]
+                    if ultimo[-1].isalpha():
+                        extrato[i] = (extrato[i] + '\t\t\tDeposito realizado no valor de: {} reais'.format(valor))
+                    else:
+                        extrato[i] = (extrato[i] + '\t\t\tDeposito realizado no valor de: {} reais'.format(valor))
+                    self.tela_depositar.lineEdit_saldo.setText(saldos[i])
+                    
             self.atualizar(usuarios,saldos,extrato)
 
         else:
@@ -431,9 +445,21 @@ class Main(QMainWindow, UiMain):
                     s = float( saldos[i] )
                     s = s - valor
                     saldos[i] = str( s )
+                    cliente = usuarios[i]
                     Money = True
-                    extrato[i] = (extrato[i] + '\t\t\tTranferencia realizado no valor de: {} para conta: {}'.format( valor,num_destino))
+                    for j in range( len( numeros ) ):
+                        # Retira da conta
+                        if num_destino == numeros[j]:
+                            cliente_dest = usuarios[j]
+                    
+                    ultimo = extrato[i]
+                    if ultimo[-1].isalpha():
+                        extrato[i] = (extrato[i] + '\t\t\tTransferencia realizado no valor de: {} para cliente: {} - conta: {}'.format(valor, cliente_dest, num_destino))
+                    else:
+                        extrato[i] = (extrato[i] + '\tTransferencia realizado no valor de: {} para cliente: {} - conta: {}'.format(valor, cliente_dest, num_destino))
 
+                    self.tela_transferir.lineEdit_saldo.setText(saldos[i])
+                   
 
             if not num_destino in numeros:
                 QMessageBox.information( None, 'Mensagem', 'Conta não existente!' )
@@ -444,8 +470,8 @@ class Main(QMainWindow, UiMain):
                     s = float( saldos[i] )
                     s = s + valor
                     saldos[i] = str( s )
-                    extrato[i] = (extrato[i] + '\t\t\tDeposito recebido no valor de: {}'.format( valor ))
-
+                    extrato[i] = (extrato[i] + '\t\t\tDeposito recebido do cliente: {}, no valor de: {}'.format(cliente,valor))
+                    
 
                     QMessageBox.information( None, 'Mensagem', 'Transferido com sucesso!' )
             if Money != True and num_destino in numeros:
